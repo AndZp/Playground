@@ -1,10 +1,10 @@
 package io.mateam.playground.di.module
 
-import android.app.Application
 import android.arch.persistence.room.Room
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import io.mateam.playground.App
 import io.mateam.playground.data.CryptocurrencyRepository
 import io.mateam.playground.data.local.CryptocurrenciesDao
 import io.mateam.playground.data.local.Database
@@ -18,7 +18,7 @@ class DbModule {
 
   @Provides
   @Singleton
-  fun provideCryptocurrenciesDatabase(app: Application): Database = Room.databaseBuilder(
+  fun provideCryptocurrenciesDatabase(app: App): Database = Room.databaseBuilder(
       app,
       Database::class.java, DATABASE_NAME
   ).fallbackToDestructiveMigration()
