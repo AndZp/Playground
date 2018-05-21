@@ -1,5 +1,6 @@
 package io.mateam.playground.di.module
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.squareup.moshi.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -18,7 +19,9 @@ class NetModule() {
 
   @Provides
   @Singleton
-  fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder().build()
+  fun providesOkHttpClient(): OkHttpClient = OkHttpClient.Builder()
+      .addNetworkInterceptor(StethoInterceptor())
+      .build()
 
   @Provides
   @Singleton
