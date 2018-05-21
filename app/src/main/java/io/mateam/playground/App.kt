@@ -4,13 +4,24 @@ import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.mateam.playground.di.component.DaggerAppComponent
+import timber.log.Timber
+import timber.log.Timber.DebugTree
 
 class App : DaggerApplication() {
 
   override fun onCreate() {
     super.onCreate()
-    Stetho.initializeWithDefaults(this)
+    initStetho()
+    initTimberLog()
+  }
 
+  private fun initStetho() {
+    Stetho.initializeWithDefaults(this)
+  }
+
+  private fun initTimberLog() {
+    if (BuildConfig.DEBUG)
+      Timber.plant(DebugTree())
   }
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

@@ -1,24 +1,19 @@
 package io.mateam.playground.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import io.mateam.playground.R
-import io.mateam.playground.data.local.CryptocurrenciesDao
+import io.mateam.playground.data.CryptocurrencyRepository
 import io.mateam.playground.data.model.Cryptocurrency
-import io.mateam.playground.data.remote.ApiInterface
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-  @Inject lateinit var context: Context
-  @Inject lateinit var api: ApiInterface
-  @Inject lateinit var cryptocurrenciesDao: CryptocurrenciesDao
+  @Inject lateinit var repository: CryptocurrencyRepository
 
   override fun onCreate(savedInstanceState: Bundle?) {
     AndroidInjection.inject(this)
@@ -30,26 +25,33 @@ class MainActivity : AppCompatActivity() {
           .replace(R.id.container, MainFragment.newInstance())
           .commitNow()
     }
+  }
 
-    api.getCryptocurrencies("a").subscribeOn(Schedulers.newThread())
-        //.observeOn(AndroidSchedulers.mainThread())
-        .debounce(400, MILLISECONDS)
-        .subscribe(object : DisposableObserver<List<Cryptocurrency>>() {
-          override fun onComplete() {
-            Timber.d("Complete")
+  override fun onResume() {
+    super.onResume()
+    updateCrypto()
+  }
 
-          }
+  private fun updateCrypto() {
+    val disposableObserver: DisposableObserver<List<Cryptocurrency>> = object : DisposableObserver<List<Cryptocurrency>>() {
+      override fun onComplete() {
+        Timber.d("getCryptocurrencies: Complete")
+      }
 
-          override fun onNext(cryptocurrencies: List<Cryptocurrency>) {
-            cryptocurrencies.forEach { Timber.d("Received: $it") }
-            cryptocurrenciesDao.insertAllCryptocurrencies(cryptocurrencies)
-          }
+      override fun onNext(cryptocurrencies: List<Cryptocurrency>) {
+        Timber.d("getCryptocurrencies: onNext - list size = ${cryptocurrencies.size}")
+        Timber.d("First received crypto: ${cryptocurrencies.first()}")
+      }
 
-          override fun onError(e: Throwable) {
-            Timber.e(e)
-          }
-        })
+      override fun onError(e: Throwable) {
+        Timber.e(e)
+      }
+    }
 
+    repository.getCryptocurrencies(50, 0)
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(disposableObserver)
   }
 
 }
