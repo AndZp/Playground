@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import io.mateam.playground.data.model.Cryptocurrency
+import io.mateam.playground.data.local.model.Cryptocurrency
 import io.reactivex.Single
 
 @Dao

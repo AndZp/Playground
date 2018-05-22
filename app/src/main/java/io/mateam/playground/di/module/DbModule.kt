@@ -5,6 +5,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.mateam.playground.App
+import io.mateam.playground.data.CryptoModelTransformer
 import io.mateam.playground.data.CryptocurrencyRepository
 import io.mateam.playground.data.local.CryptocurrenciesDao
 import io.mateam.playground.data.local.Database
@@ -30,11 +31,16 @@ class DbModule {
 
   @Provides
   @Singleton
+  fun provideCryptoModelTransformer(): CryptoModelTransformer = CryptoModelTransformer()
+
+  @Provides
+  @Singleton
   fun provideCryptocurrenciesRepository(
     api: ApiInterface,
     cryptoDao: CryptocurrenciesDao,
+    transformer: CryptoModelTransformer,
     utils: Utils
-  ): CryptocurrencyRepository = CryptocurrencyRepository(api, cryptoDao, utils)
+  ): CryptocurrencyRepository = CryptocurrencyRepository(api, cryptoDao, transformer, utils)
 
   @Provides
   @Singleton

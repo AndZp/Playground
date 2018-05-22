@@ -1,4 +1,4 @@
-package io.mateam.playground.data.model
+package io.mateam.playground.data.local.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -14,7 +14,7 @@ data class Cryptocurrency(
   @Json(name = "id")
   @PrimaryKey
   @ColumnInfo(name = "id")
-  val id: String,
+  val id: Int,
 
   @Json(name = "name")
   @ColumnInfo(name = "name")
@@ -32,43 +32,40 @@ data class Cryptocurrency(
   @ColumnInfo(name = "price_usd")
   val priceUsd: Double?,
 
-  @Json(name = "price_btc")
-  @ColumnInfo(name = "price_btc")
-  val priceBtc: String?,
 
   @Json(name = "24h_volume_usd")
   @ColumnInfo(name = "24h_volume_usd")
-  val volumeUsd24h: String?,
+  val volumeUsd24h: Double?,
 
   @Json(name = "market_cap_usd")
   @ColumnInfo(name = "market_cap_usd")
-  val marketCapUsd: String?,
+  val marketCapUsd: Double?,
 
   @Json(name = "available_supply")
   @ColumnInfo(name = "available_supply")
-  val availableSupply: String?,
+  val circulatingSupply: Double,
 
   @Json(name = "total_supply")
   @ColumnInfo(name = "total_supply")
-  val totalSupply: String?,
+  val totalSupply: Double,
 
   @Json(name = "max_supply")
   @ColumnInfo(name = "max_supply")
-  val maxSupply: String?,
+  val maxSupply: Double?,
 
   @Json(name = "percent_change_1h")
   @ColumnInfo(name = "percent_change_1h")
-  val percentChange1h: String?,
+  val percentChange1h: Double?,
 
   @Json(name = "percent_change_24h")
   @ColumnInfo(name = "percent_change_24h")
-  val percentChange24h: String?,
+  val percentChange24h: Double?,
 
   @Json(name = "percent_change_7d")
   @ColumnInfo(name = "percent_change_7d")
-  val percentChange7d: String?,
+  val percentChange7d: Double?,
 
   @Json(name = "last_updated")
   @ColumnInfo(name = "last_updated")
-  val lastUpdated: Double
+  val lastUpdated: Long
 ) : Serializable

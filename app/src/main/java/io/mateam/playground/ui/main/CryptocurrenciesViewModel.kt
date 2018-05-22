@@ -3,7 +3,7 @@ package io.mateam.playground.ui.main
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.mateam.playground.data.CryptocurrencyRepository
-import io.mateam.playground.data.model.Cryptocurrency
+import io.mateam.playground.data.local.model.Cryptocurrency
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers

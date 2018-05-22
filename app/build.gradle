@@ -16,10 +16,10 @@ android {
   }
   buildTypes {
     debug {
-      buildConfigField 'String', 'URL', '"https://api.coinmarketcap.com/v1/"'
+      buildConfigField 'String', 'URL', '"https://api.coinmarketcap.com/v2/"'
     }
     release {
-      buildConfigField 'String', 'URL', '"https://api.coinmarketcap.com/v1/"'
+      buildConfigField 'String', 'URL', '"https://api.coinmarketcap.com/v2/"'
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
@@ -62,9 +62,9 @@ dependencies {
   //Kotlin Tools and Utils
   implementation "org.jetbrains.anko:anko:${rootProject.ext.ankoVersion}"
 
-  // Glide - image loading
-  implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVer}"
-  kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glideVer}"
+  // Picasso - image loading
+  implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 
   //Log

@@ -4,8 +4,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import io.mateam.playground.R
-import io.mateam.playground.data.model.Cryptocurrency
+import io.mateam.playground.data.local.model.Cryptocurrency
 import io.mateam.playground.ui.main.list.CryptocurrenciesAdapter.CryptocurrencieViewHolder
 import io.mateam.playground.utils.Utils
 import kotlinx.android.synthetic.main.list_item_cryptocurrency.view.cryptocurrency_id
@@ -67,6 +68,12 @@ class CryptocurrenciesAdapter(
     ) {
       tvCryptoName.text = cryptocurrencyItem.name
       tvCryptoPrice.text = cryptocurrencyItem.priceUsd.toString()
+      Picasso
+          .get()
+          .load(cryptoIconId)
+          .placeholder(R.drawable.ic_no_icon)
+          .into(ivCryptoIcon)
+
       ivCryptoIcon.imageResource = cryptoIconId
     }
   }
