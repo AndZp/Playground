@@ -1,6 +1,7 @@
 package io.mateam.playground
 
 import com.facebook.stetho.Stetho
+import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import io.mateam.playground.di.component.DaggerAppComponent
@@ -13,6 +14,17 @@ class App : DaggerApplication() {
     super.onCreate()
     initStetho()
     initTimberLog()
+    initLeakCanary()
+  }
+
+  private fun initLeakCanary() {
+    if (LeakCanary.isInAnalyzerProcess(this)) {
+      // This process is dedicated to LeakCanary for heap analysis.
+      // You should not init your app in this process.
+      return
+    }
+    LeakCanary.install(this)
+    // Normal app init code...
   }
 
   private fun initStetho() {

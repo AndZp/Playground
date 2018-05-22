@@ -8,11 +8,15 @@ import dagger.multibindings.IntoMap
 import io.mateam.playground.di.ViewModelKey
 import io.mateam.playground.ui.main.CryptocurrenciesViewModel
 import io.mateam.playground.ui.main.MainActivity
+import io.mateam.playground.ui.main.list.CryptoListFragment
 
 @Module
 internal abstract class MainActivityModule {
   @ContributesAndroidInjector
   internal abstract fun mainActivity(): MainActivity
+
+  @ContributesAndroidInjector
+  internal abstract fun mainFragment(): CryptoListFragment
 
   @Binds
   @IntoMap

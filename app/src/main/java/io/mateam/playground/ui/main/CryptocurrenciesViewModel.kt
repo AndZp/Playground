@@ -1,6 +1,5 @@
 package io.mateam.playground.ui.main
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import io.mateam.playground.data.CryptocurrencyRepository
@@ -8,6 +7,7 @@ import io.mateam.playground.data.model.Cryptocurrency
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 import java.util.concurrent.TimeUnit.MILLISECONDS
 import javax.inject.Inject
 
@@ -20,18 +20,6 @@ class CryptocurrenciesViewModel @Inject constructor(
   var cryptocurrenciesLoader: MutableLiveData<Boolean> = MutableLiveData()
 
   lateinit var disposableObserver: DisposableObserver<List<Cryptocurrency>>
-
-  fun cryptocurrenciesResult(): LiveData<List<Cryptocurrency>> {
-    return cryptocurrenciesResult
-  }
-
-  fun cryptocurrenciesError(): LiveData<String> {
-    return cryptocurrenciesError
-  }
-
-  fun cryptocurrenciesLoader(): LiveData<Boolean> {
-    return cryptocurrenciesLoader
-  }
 
   fun loadCryptocurrencies(
     limit: Int,
@@ -49,6 +37,7 @@ class CryptocurrenciesViewModel @Inject constructor(
       }
 
       override fun onError(e: Throwable) {
+        Timber.e(e)
         cryptocurrenciesError.postValue(e.message)
         cryptocurrenciesLoader.postValue(false)
       }
