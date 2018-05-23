@@ -65,8 +65,6 @@ dependencies {
   // Picasso - image loading
   implementation 'com.squareup.picasso:picasso:2.71828'
 
-
-
   //Log
   implementation 'com.jakewharton.timber:timber:4.7.0'
   implementation "com.facebook.stetho:stetho:${rootProject.ext.stethoVer}"
@@ -75,6 +73,14 @@ dependencies {
   //Memory profiling
   debugImplementation "com.squareup.leakcanary:leakcanary-android:${rootProject.ext.leakcanaryVer}"
   releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:${rootProject.ext.leakcanaryVer}"
+
+  //Android Jetpack - Paging
+  implementation "android.arch.paging:runtime:${rootProject.ext.paging_version}"
+  // alternatively - without Android dependencies for testing
+  testImplementation "android.arch.paging:common:${rootProject.ext.paging_version}"
+  // optional - RxJava support, currently in release candidate
+  implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+
 
   //test
   testImplementation "junit:junit:${rootProject.ext.junitVersion}"

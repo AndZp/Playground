@@ -1,34 +1,24 @@
 package io.mateam.playground.ui.main.list
 
+import android.arch.paging.PagedListAdapter
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
 import io.mateam.playground.R
-import io.mateam.playground.data.local.model.Cryptocurrency
+import io.mateam.playground.data.repo.model.Cryptocurrency
 import io.mateam.playground.ui.main.list.CryptocurrenciesAdapter.CryptocurrencieViewHolder
 import io.mateam.playground.utils.Utils
-import kotlinx.android.synthetic.main.list_item_cryptocurrency.view.cryptocurrency_id
 import kotlinx.android.synthetic.main.list_item_cryptocurrency.view.ivCryptoIcon
+import kotlinx.android.synthetic.main.list_item_cryptocurrency.view.tvCryptoId
 import kotlinx.android.synthetic.main.list_item_cryptocurrency.view.tvUsdPrice
 import org.jetbrains.anko.imageResource
-import java.util.ArrayList
 
 class CryptocurrenciesAdapter(
-  cryptocurrencies: List<Cryptocurrency>,
   var utils: Utils
-) : RecyclerView.Adapter<CryptocurrencieViewHolder>() {
-
-  private var cryptocurrenciesList = ArrayList<Cryptocurrency>()
-
-  init {
-    this.cryptocurrenciesList = cryptocurrencies as ArrayList<Cryptocurrency>
-  }
-
-  override fun getItemCount(): Int {
-    return cryptocurrenciesList.size
-  }
+) : PagedListAdapter<Cryptocurrency, CryptocurrencieViewHolder>(REPO_COMPARATOR) {
 
   override fun onCreateViewHolder(
     parent: ViewGroup,
@@ -45,20 +35,16 @@ class CryptocurrenciesAdapter(
     holder: CryptocurrencieViewHolder,
     position: Int
   ) {
-    val cryptocurrencyItem = cryptocurrenciesList[position]
-    val cryptoIconId = utils.getRecourseIdByCoinName(cryptocurrencyItem.symbol)
-    holder.cryptocurrencyListItem(cryptocurrencyItem, cryptoIconId)
-  }
-
-  fun addCryptocurrencies(cryptocurrencies: List<Cryptocurrency>) {
-    val initPosition = cryptocurrenciesList.size
-    cryptocurrenciesList.addAll(cryptocurrencies)
-    notifyItemRangeInserted(initPosition, cryptocurrenciesList.size)
+    val cryptocurrencyItem = getItem(position)
+    if (cryptocurrencyItem != null) {
+      val cryptoIconId = utils.getRecourseIdByCoinName(cryptocurrencyItem.symbol)
+      holder.cryptocurrencyListItem(cryptocurrencyItem, cryptoIconId)
+    }
   }
 
   class CryptocurrencieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    var tvCryptoName = itemView.cryptocurrency_id
+    var tvCryptoName = itemView.tvCryptoId
     var tvCryptoPrice = itemView.tvUsdPrice
     var ivCryptoIcon = itemView.ivCryptoIcon
 
@@ -75,6 +61,22 @@ class CryptocurrenciesAdapter(
           .into(ivCryptoIcon)
 
       ivCryptoIcon.imageResource = cryptoIconId
+    }
+  }
+
+  companion object {
+    private val REPO_COMPARATOR = object : DiffUtil.ItemCallback<Cryptocurrency>() {
+      override fun areItemsTheSame(
+        oldItem: Cryptocurrency,
+        newItem: Cryptocurrency
+      ): Boolean =
+        oldItem.id == newItem.id
+
+      override fun areContentsTheSame(
+        oldItem: Cryptocurrency,
+        newItem: Cryptocurrency
+      ): Boolean =
+        oldItem == newItem
     }
   }
 }

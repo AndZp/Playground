@@ -1,4 +1,5 @@
 package io.mateam.playground.di
+
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import javax.inject.Inject

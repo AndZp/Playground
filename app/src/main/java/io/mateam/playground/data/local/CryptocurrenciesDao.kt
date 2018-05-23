@@ -1,20 +1,20 @@
 package io.mateam.playground.data.local
 
+import android.arch.paging.DataSource
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
-import io.mateam.playground.data.local.model.Cryptocurrency
-import io.reactivex.Single
+import io.mateam.playground.data.repo.model.Cryptocurrency
 
+/**
+ * Room data access object for accessing the [Cryptocurrency] table.
+ */
 @Dao
 interface CryptocurrenciesDao {
 
-  @Query("SELECT * FROM cryptocurrencies ORDER BY rank limit :limit offset :offset")
-  fun queryCryptocurrencies(
-    limit: Int,
-    offset: Int
-  ): Single<List<Cryptocurrency>>
+  @Query("SELECT * FROM cryptocurrencies ORDER BY rank")
+  fun queryCryptocurrencies(): DataSource.Factory<Int, Cryptocurrency>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun insertCryptocurrency(cryptocurrency: Cryptocurrency)

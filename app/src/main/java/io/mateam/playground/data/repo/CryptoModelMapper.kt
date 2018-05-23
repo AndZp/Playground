@@ -1,15 +1,15 @@
-package io.mateam.playground.data
+package io.mateam.playground.data.repo
 
-import io.mateam.playground.data.local.model.Cryptocurrency
 import io.mateam.playground.data.remote.model.CryptoApiResponse
+import io.mateam.playground.data.repo.model.Cryptocurrency
 
-class CryptoModelTransformer {
-  fun toDbFormatFromApi(cryptoApiResponse: CryptoApiResponse): List<Cryptocurrency> {
-    val resultList = arrayListOf<Cryptocurrency>()
-
-    cryptoApiResponse.data?.forEach {
-      val cryptoModel = it.value
-      val cryptocurrency = Cryptocurrency(
+/**
+ * Mapping API response to db models
+ */
+class CryptoModelMapper {
+  fun toDbFormatFromApi(cryptoApiResponse: CryptoApiResponse): List<Cryptocurrency>? {
+    return cryptoApiResponse.data?.values?.map { cryptoModel ->
+      Cryptocurrency(
           id = cryptoModel.id,
           name = cryptoModel.name,
           symbol = cryptoModel.symbol,
@@ -25,8 +25,6 @@ class CryptoModelTransformer {
           percentChange7d = cryptoModel.quotes?.uSD?.percentChange7d,
           lastUpdated = cryptoModel.lastUpdated
       )
-      resultList.add(cryptocurrency)
     }
-    return resultList
   }
 }
