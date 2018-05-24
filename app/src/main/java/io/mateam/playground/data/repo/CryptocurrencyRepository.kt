@@ -15,16 +15,17 @@ class CryptocurrencyRepository @Inject constructor(
 ) {
 
   /**
-   * Search repositories whose names match the query.
+   * Get cryptocurrencies from Repository
    */
-  fun getCryptoData(): CryptoSearchResult {
-    Timber.d("New query")
+  fun getCryptocurrenciesSearchResult(): CryptoSearchResult {
+    Timber.d("New get request ")
     // Get data source factory from the local cache
     val dataSourceFactory = cryptocurrenciesDao.queryCryptocurrencies()
 
     // Construct the boundary callback
     val boundaryCallback = RepoBoundaryCallback(apiInterface, cryptocurrenciesDao, mapper)
     val networkErrors = boundaryCallback.networkErrors
+    val loadingStatus = boundaryCallback.loadingStatus
 
     // Get the paged list
     val data = LivePagedListBuilder(dataSourceFactory, DATABASE_PAGE_SIZE)
@@ -32,7 +33,7 @@ class CryptocurrencyRepository @Inject constructor(
         .build()
 
     // Get the network errors exposed by the boundary callback
-    return CryptoSearchResult(data, networkErrors)
+    return CryptoSearchResult(data, networkErrors, loadingStatus)
   }
 
 }
