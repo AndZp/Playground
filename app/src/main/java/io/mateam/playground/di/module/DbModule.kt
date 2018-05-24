@@ -5,11 +5,11 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import io.mateam.playground.App
-import io.mateam.playground.data.CryptoModelTransformer
-import io.mateam.playground.data.CryptocurrencyRepository
 import io.mateam.playground.data.local.CryptocurrenciesDao
 import io.mateam.playground.data.local.Database
 import io.mateam.playground.data.remote.ApiInterface
+import io.mateam.playground.data.repo.CryptoModelMapper
+import io.mateam.playground.data.repo.CryptocurrencyRepository
 import io.mateam.playground.utils.Constants.Companion.DATABASE_NAME
 import io.mateam.playground.utils.Utils
 import javax.inject.Singleton
@@ -19,11 +19,13 @@ class DbModule {
 
   @Provides
   @Singleton
-  fun provideCryptocurrenciesDatabase(app: App): Database = Room.databaseBuilder(
-      app,
-      Database::class.java, DATABASE_NAME
-  ).fallbackToDestructiveMigration()
-      .build()
+  fun provideCryptocurrenciesDatabase(app: App): Database =
+    Room.databaseBuilder(
+        app,
+        Database::class.java, DATABASE_NAME
+    )
+        .fallbackToDestructiveMigration()
+        .build()
 
   @Provides
   @Singleton
@@ -31,16 +33,17 @@ class DbModule {
 
   @Provides
   @Singleton
-  fun provideCryptoModelTransformer(): CryptoModelTransformer = CryptoModelTransformer()
+  fun provideCryptoModelTransformer(): CryptoModelMapper = CryptoModelMapper()
 
   @Provides
   @Singleton
   fun provideCryptocurrenciesRepository(
     api: ApiInterface,
     cryptoDao: CryptocurrenciesDao,
-    transformer: CryptoModelTransformer,
-    utils: Utils
-  ): CryptocurrencyRepository = CryptocurrencyRepository(api, cryptoDao, transformer, utils)
+    mapper: CryptoModelMapper
+  ): CryptocurrencyRepository = CryptocurrencyRepository(
+      api, cryptoDao, mapper
+  )
 
   @Provides
   @Singleton

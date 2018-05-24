@@ -1,4 +1,4 @@
-package io.mateam.playground.data.local.model
+package io.mateam.playground.data.repo.model
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
@@ -31,7 +31,6 @@ data class Cryptocurrency(
   @Json(name = "price_usd")
   @ColumnInfo(name = "price_usd")
   val priceUsd: Double?,
-
 
   @Json(name = "24h_volume_usd")
   @ColumnInfo(name = "24h_volume_usd")
