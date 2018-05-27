@@ -1,4 +1,4 @@
-package io.mateam.playground.ui.main
+package io.mateam.playground.ui.main.list
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -6,16 +6,16 @@ import android.arch.lifecycle.Transformations
 import android.arch.lifecycle.ViewModel
 import android.arch.paging.PagedList
 import io.mateam.playground.data.repo.CryptocurrencyRepository
-import io.mateam.playground.data.repo.model.CryptoSearchResult
+import io.mateam.playground.data.repo.model.CryptoListQueryResult
 import io.mateam.playground.data.repo.model.Cryptocurrency
 import io.mateam.playground.utils.LoadingStatus
 import javax.inject.Inject
 
-class CryptocurrenciesViewModel @Inject constructor(
+class CryptoListViewModel @Inject constructor(
   private val cryptocurrencyRepository: CryptocurrencyRepository
 ) : ViewModel() {
 
-  private val repoResult = MutableLiveData<CryptoSearchResult>()
+  private val repoResult = MutableLiveData<CryptoListQueryResult>()
 
   val crypocurrencies: LiveData<PagedList<Cryptocurrency>> = Transformations.switchMap(
       repoResult,
@@ -29,6 +29,6 @@ class CryptocurrenciesViewModel @Inject constructor(
    * Load Cryptocurrencies from repository
    */
   fun loadCryptocurrencies() {
-    repoResult.postValue(cryptocurrencyRepository.getCryptocurrenciesSearchResult())
+    repoResult.postValue(cryptocurrencyRepository.getCryptocurrenciesQueryResult())
   }
 }

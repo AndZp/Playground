@@ -3,6 +3,7 @@ package io.mateam.playground.ui.main
 import android.os.Bundle
 import dagger.android.support.DaggerAppCompatActivity
 import io.mateam.playground.R
+import io.mateam.playground.ui.main.detail.CryptoDetailsFragment
 import io.mateam.playground.ui.main.list.CryptoListFragment
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -16,5 +17,18 @@ class MainActivity : DaggerAppCompatActivity() {
           .replace(R.id.container, CryptoListFragment.newInstance())
           .commitNow()
     }
+  }
+
+  /** Shows the cryptocurrency detail fragment */
+  fun show(cryptoId: Int) {
+    val cryptoDetailsFragment = CryptoDetailsFragment.newInstance(cryptoId)
+
+    supportFragmentManager
+        .beginTransaction()
+        .addToBackStack("project")
+        .replace(
+            R.id.container,
+            cryptoDetailsFragment, null
+        ).commit()
   }
 }

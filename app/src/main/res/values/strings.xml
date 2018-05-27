@@ -3,4 +3,14 @@
   <string name="cryptocurrency_text">Cryptocurrency</string>
   <string name="cryptocurrency_error_message">There is an error getting the data: \n</string>
   <string name="no_data_available">No data available</string>
+  <string name="title_7_days">7 days</string>
+  <string name="market_cup">Market cup:</string>
+  <string name="_24h_volume">24h volume:</string>
+  <string name="cryptocurrency_icon">Cryptocurrency icon</string>
+  <string name="change">Change:</string>
+  <string name="_1_hour">1 hour</string>
+  <string name="_24_hours">24 hours</string>
+  <string name="price_usd">Price (USD):</string>
+  <string name="price_btc">Price (BTC):</string>
+  <string name="not_available">Not available</string>
 </resources>

@@ -4,4 +4,6 @@
   <dimen name="text_error_size">16sp</dimen>
   <dimen name="default_4dp">4dp</dimen>
   <dimen name="default_8dp">8dp</dimen>
+  <dimen name="details_font_title_size">19sp</dimen>
+  <dimen name="details_font_value_size">16sp</dimen>
 </resources>

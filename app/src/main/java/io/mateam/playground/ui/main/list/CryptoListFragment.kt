@@ -15,7 +15,7 @@ import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import io.mateam.playground.R
 import io.mateam.playground.data.repo.model.Cryptocurrency
-import io.mateam.playground.ui.main.CryptocurrenciesViewModel
+import io.mateam.playground.ui.main.MainActivity
 import io.mateam.playground.utils.LoadingStatus.ERROR
 import io.mateam.playground.utils.LoadingStatus.LOADING
 import io.mateam.playground.utils.LoadingStatus.SUCCESS
@@ -31,7 +31,7 @@ class CryptoListFragment : Fragment() {
   @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
   @Inject lateinit var utils: Utils
 
-  private lateinit var viewModel: CryptocurrenciesViewModel
+  private lateinit var viewModel: CryptoListViewModel
   private lateinit var cryptocurrenciesAdapter: CryptocurrenciesAdapter
 
   companion object {
@@ -54,10 +54,11 @@ class CryptoListFragment : Fragment() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-    viewModel = ViewModelProviders.of(this, viewModelFactory).get(CryptocurrenciesViewModel::class.java)
+    viewModel = ViewModelProviders.of(this, viewModelFactory).get(CryptoListViewModel::class.java)
     subscribeToViewModel()
     initializeRecycler()
     viewModel.loadCryptocurrencies()
+
   }
 
   private fun initializeRecycler() {
@@ -65,11 +66,12 @@ class CryptoListFragment : Fragment() {
     rvCryptos.addItemDecoration(decoration)
     rvCryptos.adapter = cryptocurrenciesAdapter
     rvCryptos.layoutManager = LinearLayoutManager(context)
+    cryptocurrenciesAdapter.onItemClick = { cryptocurrency -> (activity as MainActivity).show(cryptocurrency.id) }
   }
 
   private fun subscribeToViewModel() {
     viewModel.crypocurrencies.observe(this, Observer<PagedList<Cryptocurrency>> {
-      Timber.d("viewModel.crypocurrencies.observe - list: ${it?.size}")
+      Timber.d("viewModel.cryptoData.observe - list: ${it?.size}")
       showEmptyState(it?.size == 0)
       cryptocurrenciesAdapter.submitList(it)
     })

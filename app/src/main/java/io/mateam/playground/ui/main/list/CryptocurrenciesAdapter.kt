@@ -20,6 +20,8 @@ class CryptocurrenciesAdapter(
   var utils: Utils
 ) : PagedListAdapter<Cryptocurrency, CryptocurrencieViewHolder>(REPO_COMPARATOR) {
 
+  var onItemClick: (Cryptocurrency) -> Unit = {}
+
   override fun onCreateViewHolder(
     parent: ViewGroup,
     viewType: Int
@@ -39,6 +41,7 @@ class CryptocurrenciesAdapter(
     if (cryptocurrencyItem != null) {
       val cryptoIconId = utils.getRecourseIdByCoinName(cryptocurrencyItem.symbol)
       holder.cryptocurrencyListItem(cryptocurrencyItem, cryptoIconId)
+      holder.itemView.setOnClickListener { onItemClick(cryptocurrencyItem) }
     }
   }
 
