@@ -21,12 +21,16 @@
 2. Dagger2: https://github.com/MindorksOpenSource/android-dagger2-example
 3. Retrofit 2: http://square.github.io/retrofit
 4. Moshi: https://github.com/square/moshi
-5. Room: https://developer.android.com/topic/libraries/architecture/room.html
-6. Picasso: http://square.github.io/picasso/
-7. LeakCanary: https://github.com/square/leakcanary
-8. Timber: https://github.com/JakeWharton/timber
-9. Android Jetpack https://developer.android.com/jetpack/
+5. Picasso: http://square.github.io/picasso/
+6. LeakCanary: https://github.com/square/leakcanary
+7. Timber: https://github.com/JakeWharton/timber
 
+8. Android Jetpack https://developer.android.com/jetpack/  : 
+   - Room: https://developer.android.com/topic/libraries/architecture/room
+   - LiveData: https://developer.android.com/topic/libraries/architecture/livedata
+   - ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel
+   - Paging: https://developer.android.com/topic/libraries/architecture/paging/
+  
 ### License
 ```
 
