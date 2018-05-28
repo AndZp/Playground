@@ -30,10 +30,27 @@
    - LiveData: https://developer.android.com/topic/libraries/architecture/livedata
    - ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel
    - Paging: https://developer.android.com/topic/libraries/architecture/paging/
+   - Navigation : https://developer.android.com/topic/libraries/architecture/navigation/
+     
+#### Adb commands for deep link testing:
+CryptoListFragment : 
+
+```
+adb shell am start 
+   -a android.intent.action.VIEW 
+   -d "http://mateam.io/crypto/list" io.mateam.playground
+   ```
+CryptoDetailsFragment ({crypto_id} - replace with id) :
+
+```
+adb shell am start 
+   -a android.intent.action.VIEW 
+   -d "http://mateam.io/crypto/details/{crypto_id}" io.mateam.playground 
+  ```	
+		
   
 ### License
 ```
-
  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
          Version 2, December 2004 
 
