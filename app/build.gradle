@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
+apply plugin: "androidx.navigation.safeargs"
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -82,6 +82,9 @@ dependencies {
   // optional - RxJava support, currently in release candidate
   implementation "android.arch.paging:rxjava2:1.0.0-rc1"
 
+  //Android Jetpack - Navigation
+  implementation 'android.arch.navigation:navigation-fragment:' + rootProject.nav_version
+  implementation 'android.arch.navigation:navigation-ui:' + rootProject.nav_version
 
   //test
   testImplementation "junit:junit:${rootProject.ext.junitVersion}"

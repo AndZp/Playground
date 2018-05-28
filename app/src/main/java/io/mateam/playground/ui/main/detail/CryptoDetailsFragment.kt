@@ -41,15 +41,7 @@ class CryptoDetailsFragment : Fragment() {
   private lateinit var viewModel: CryptoDetailsViewModel
 
   companion object {
-    private const val KEY_CRYPTO_ID: String = "com.mateam.key_crypto_id"
-
-    fun newInstance(cryptoId: Int): CryptoDetailsFragment {
-      val cryptoDetailsFragment = CryptoDetailsFragment()
-      val args = Bundle()
-      args.putInt(KEY_CRYPTO_ID, cryptoId)
-      cryptoDetailsFragment.arguments = args
-      return cryptoDetailsFragment
-    }
+    const val KEY_CRYPTO_ID: String = "key_crypto_id"
   }
 
   override fun onAttach(context: Context?) {
@@ -69,7 +61,7 @@ class CryptoDetailsFragment : Fragment() {
     super.onActivityCreated(savedInstanceState)
     viewModel = android.arch.lifecycle.ViewModelProviders.of(this, viewModelFactory).get(CryptoDetailsViewModel::class.java)
     subscribeToViewModel()
-    val cryptoId = arguments?.getInt(KEY_CRYPTO_ID) ?: throw IllegalStateException("Cryptocurrency ID can't be null")
+    val cryptoId = arguments?.getCryptoId() ?: throw IllegalStateException("Cryptocurrency ID can't be null")
     viewModel.loadCryptocurrencyById(cryptoId)
   }
 
@@ -125,5 +117,24 @@ class CryptoDetailsFragment : Fragment() {
       this.text = context.getString(string.not_available)
     }
   }
+}
+
+private fun Bundle.getCryptoId(): Int? {
+  //Check if fragment was opened from CryptoListFragment
+  var cryptoId: Int? = null
+  val intentCryptoId: Int? = this.getInt(CryptoDetailsFragment.KEY_CRYPTO_ID, -1)
+  if (intentCryptoId != null && intentCryptoId > 0) {
+    Timber.d("Fragment opened from CryptoListFragment. Crypto id = $intentCryptoId")
+    cryptoId = intentCryptoId
+  }
+  // Check if fragment was opened via deep link
+  val stringCryptoId: String? = this.getString(CryptoDetailsFragment.KEY_CRYPTO_ID)
+  val deepLinkCryptoId: Int? = stringCryptoId?.toIntOrNull()
+  if (deepLinkCryptoId != null && deepLinkCryptoId > 0) {
+    Timber.d("Fragment opened via deep link. Crypto id = $deepLinkCryptoId")
+    cryptoId = deepLinkCryptoId
+  }
+
+  return cryptoId
 }
 

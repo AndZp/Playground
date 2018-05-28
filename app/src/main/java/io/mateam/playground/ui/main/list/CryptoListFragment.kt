@@ -12,10 +12,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.AndroidSupportInjection
 import io.mateam.playground.R
 import io.mateam.playground.data.repo.model.Cryptocurrency
-import io.mateam.playground.ui.main.MainActivity
+import io.mateam.playground.ui.main.detail.CryptoDetailsFragment
 import io.mateam.playground.utils.LoadingStatus.ERROR
 import io.mateam.playground.utils.LoadingStatus.LOADING
 import io.mateam.playground.utils.LoadingStatus.SUCCESS
@@ -23,6 +24,7 @@ import io.mateam.playground.utils.Utils
 import kotlinx.android.synthetic.main.fragment_crypto_list.pbLoading
 import kotlinx.android.synthetic.main.fragment_crypto_list.rvCryptos
 import kotlinx.android.synthetic.main.fragment_crypto_list.tvEmptyState
+import org.jetbrains.anko.bundleOf
 import org.jetbrains.anko.support.v4.toast
 import timber.log.Timber
 import javax.inject.Inject
@@ -66,7 +68,12 @@ class CryptoListFragment : Fragment() {
     rvCryptos.addItemDecoration(decoration)
     rvCryptos.adapter = cryptocurrenciesAdapter
     rvCryptos.layoutManager = LinearLayoutManager(context)
-    cryptocurrenciesAdapter.onItemClick = { cryptocurrency -> (activity as MainActivity).show(cryptocurrency.id) }
+    cryptocurrenciesAdapter.onItemClick = { cryptocurrency ->
+      //(activity as MainActivity).show(cryptocurrency.id)
+      val bundle = bundleOf(CryptoDetailsFragment.KEY_CRYPTO_ID to cryptocurrency.id)
+      NavHostFragment.findNavController(this).navigate(R.id.action_cryptoListFragment_to_cryptoDetailsFragment, bundle)
+    }
+
   }
 
   private fun subscribeToViewModel() {
