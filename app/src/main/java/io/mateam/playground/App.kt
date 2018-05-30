@@ -1,19 +1,21 @@
 package io.mateam.playground
 
+import com.crashlytics.android.Crashlytics
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
+import io.fabric.sdk.android.Fabric
 import io.mateam.playground.di.component.DaggerAppComponent
+import io.mateam.playground.utils.CrashReportingTree
 import timber.log.Timber
-import timber.log.Timber.DebugTree
 
 class App : DaggerApplication() {
 
   override fun onCreate() {
     super.onCreate()
     initStetho()
-    initTimberLog()
+    initTimberWithCrashlitics()
     initLeakCanary()
   }
 
@@ -31,9 +33,14 @@ class App : DaggerApplication() {
     Stetho.initializeWithDefaults(this)
   }
 
-  private fun initTimberLog() {
-    if (BuildConfig.DEBUG)
-      Timber.plant(DebugTree())
+  private fun initTimberWithCrashlitics() {
+    Timber.plant(
+        if (BuildConfig.DEBUG)
+          Timber.DebugTree()
+        else
+          CrashReportingTree()
+    )
+    Fabric.with(this, Crashlytics())
   }
 
   override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

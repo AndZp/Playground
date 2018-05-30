@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'io.fabric'
 
 android {
   compileSdkVersion rootProject.ext.compileSdkVersion
@@ -83,12 +85,17 @@ dependencies {
   implementation "android.arch.paging:runtime:${rootProject.ext.paging_version}"
   // alternatively - without Android dependencies for testing
   testImplementation "android.arch.paging:common:${rootProject.ext.paging_version}"
-  // optional - RxJava support, currently in release candidate
-  implementation "android.arch.paging:rxjava2:1.0.0-rc1"
 
   //Android Jetpack - Navigation
   implementation 'android.arch.navigation:navigation-fragment:' + rootProject.nav_version
   implementation 'android.arch.navigation:navigation-ui:' + rootProject.nav_version
+
+  //WorkManager - task scheduling
+  implementation "android.arch.work:work-runtime-ktx:${rootProject.ext.work_version}" 
+  implementation "android.arch.work:work-firebase:${rootProject.ext.work_version}"
+
+  //Crashlitics
+  implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
 
   //test
   testImplementation "junit:junit:${rootProject.ext.junitVersion}"

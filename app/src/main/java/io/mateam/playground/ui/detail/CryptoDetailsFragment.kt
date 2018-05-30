@@ -54,7 +54,6 @@ class CryptoDetailsFragment : Fragment() {
       it.setLifecycleOwner(this@CryptoDetailsFragment)
       it.viewmodel = viewModel
     }
-
     return dataBinding.root
   }
 
