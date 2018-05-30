@@ -14,14 +14,14 @@
 #### Classes have been designed in such a way that it could be inherited and maximize the code reuse.
 
 ### Tools: 
-1. Android Studio 3.2 (Canary)
+1. Android Studio 3.2 (Canary 16)
 
 ### Library reference resources:
 1. RxJava2: https://github.com/amitshekhariitbhu/RxJava2-Android-Samples
 2. Dagger2: https://github.com/MindorksOpenSource/android-dagger2-example
 3. Retrofit 2: http://square.github.io/retrofit
 4. Moshi: https://github.com/square/moshi
-5. Picasso: http://square.github.io/picasso/
+5. Glide: https://github.com/bumptech/glide
 6. LeakCanary: https://github.com/square/leakcanary
 7. Timber: https://github.com/JakeWharton/timber
 
@@ -30,7 +30,8 @@
    - LiveData: https://developer.android.com/topic/libraries/architecture/livedata
    - ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel
    - Paging: https://developer.android.com/topic/libraries/architecture/paging/
-   - Navigation : https://developer.android.com/topic/libraries/architecture/navigation/
+   - Navigation: https://developer.android.com/topic/libraries/architecture/navigation/
+   - DataBinding: https://developer.android.com/topic/libraries/data-binding/
      
 #### Adb commands for deep link testing:
 CryptoListFragment : 
