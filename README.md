@@ -24,8 +24,8 @@
 5. Glide: https://github.com/bumptech/glide
 6. LeakCanary: https://github.com/square/leakcanary
 7. Timber: https://github.com/JakeWharton/timber
-
-8. Android Jetpack https://developer.android.com/jetpack/  : 
+8. Crashlitics: https://fabric.io/kits/android/crashlytics
+9. Android Jetpack https://developer.android.com/jetpack/  : 
    - Room: https://developer.android.com/topic/libraries/architecture/room
    - LiveData: https://developer.android.com/topic/libraries/architecture/livedata
    - ViewModel: https://developer.android.com/topic/libraries/architecture/viewmodel
