@@ -1,4 +1,4 @@
-package io.mateam.playground.ui.main.list
+package io.mateam.playground.ui.list
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
@@ -16,7 +16,7 @@ import androidx.navigation.fragment.NavHostFragment
 import dagger.android.support.AndroidSupportInjection
 import io.mateam.playground.R
 import io.mateam.playground.data.repo.model.Cryptocurrency
-import io.mateam.playground.ui.main.detail.CryptoDetailsFragment
+import io.mateam.playground.ui.detail.CryptoDetailsFragment
 import io.mateam.playground.utils.LoadingStatus.ERROR
 import io.mateam.playground.utils.LoadingStatus.LOADING
 import io.mateam.playground.utils.LoadingStatus.SUCCESS
@@ -35,10 +35,6 @@ class CryptoListFragment : Fragment() {
 
   private lateinit var viewModel: CryptoListViewModel
   private lateinit var cryptocurrenciesAdapter: CryptocurrenciesAdapter
-
-  companion object {
-    fun newInstance() = CryptoListFragment()
-  }
 
   override fun onAttach(context: Context?) {
     super.onAttach(context)
@@ -69,11 +65,9 @@ class CryptoListFragment : Fragment() {
     rvCryptos.adapter = cryptocurrenciesAdapter
     rvCryptos.layoutManager = LinearLayoutManager(context)
     cryptocurrenciesAdapter.onItemClick = { cryptocurrency ->
-      //(activity as MainActivity).show(cryptocurrency.id)
       val bundle = bundleOf(CryptoDetailsFragment.KEY_CRYPTO_ID to cryptocurrency.id)
       NavHostFragment.findNavController(this).navigate(R.id.action_cryptoListFragment_to_cryptoDetailsFragment, bundle)
     }
-
   }
 
   private fun subscribeToViewModel() {

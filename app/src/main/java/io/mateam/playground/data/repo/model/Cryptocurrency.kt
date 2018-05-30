@@ -3,6 +3,7 @@ package io.mateam.playground.data.repo.model
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.support.annotation.DrawableRes
 import com.squareup.moshi.Json
 import java.io.Serializable
 
@@ -31,6 +32,10 @@ data class Cryptocurrency(
   @Json(name = "price_usd")
   @ColumnInfo(name = "price_usd")
   val priceUsd: Double?,
+
+  @Json(name = "price_btc")
+  @ColumnInfo(name = "price_btc")
+  val priceBtc: Double?,
 
   @Json(name = "24h_volume_usd")
   @ColumnInfo(name = "24h_volume_usd")
@@ -66,5 +71,10 @@ data class Cryptocurrency(
 
   @Json(name = "last_updated")
   @ColumnInfo(name = "last_updated")
-  val lastUpdated: Long
+  val lastUpdated: Long,
+
+  @DrawableRes
+  @Json(name = "iconResId")
+  @ColumnInfo(name = "iconResId")
+  val iconResId: Int?
 ) : Serializable

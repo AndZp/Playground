@@ -1,4 +1,4 @@
-package io.mateam.playground.ui.main.list
+package io.mateam.playground.ui.list
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData

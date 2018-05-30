@@ -5,7 +5,7 @@
     app:startDestination="@id/cryptoListFragment">
   <fragment
       android:id="@+id/cryptoListFragment"
-      android:name="io.mateam.playground.ui.main.list.CryptoListFragment"
+      android:name="io.mateam.playground.ui.list.CryptoListFragment"
       android:label="fragment_crypto_list"
       tools:layout="@layout/fragment_crypto_list">
     <action
@@ -21,7 +21,7 @@
   </fragment>
   <fragment
       android:id="@+id/cryptoDetailsFragment"
-      android:name="io.mateam.playground.ui.main.detail.CryptoDetailsFragment"
+      android:name="io.mateam.playground.ui.detail.CryptoDetailsFragment"
       android:label="fragment_crypto_details"
       tools:layout="@layout/fragment_crypto_details">
 

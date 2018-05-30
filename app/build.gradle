@@ -24,6 +24,9 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  dataBinding {
+    enabled = true
+  }
 }
 
 dependencies {
@@ -63,8 +66,9 @@ dependencies {
   //Kotlin Tools and Utils
   implementation "org.jetbrains.anko:anko:${rootProject.ext.ankoVersion}"
 
-  // Picasso - image loading
-  implementation 'com.squareup.picasso:picasso:2.71828'
+  // Glide - image loading
+  implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide_ver}"
+  kapt "com.github.bumptech.glide:compiler:${rootProject.ext.glide_ver}"
 
   //Log
   implementation 'com.jakewharton.timber:timber:4.7.0'

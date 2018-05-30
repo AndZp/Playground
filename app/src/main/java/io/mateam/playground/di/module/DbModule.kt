@@ -33,7 +33,7 @@ class DbModule {
 
   @Provides
   @Singleton
-  fun provideCryptoModelTransformer(): CryptoModelMapper = CryptoModelMapper()
+  fun provideCryptoModelTransformer(utils: Utils): CryptoModelMapper = CryptoModelMapper(utils)
 
   @Provides
   @Singleton

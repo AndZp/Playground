@@ -6,11 +6,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 import io.mateam.playground.di.ViewModelKey
-import io.mateam.playground.ui.main.MainActivity
-import io.mateam.playground.ui.main.detail.CryptoDetailsFragment
-import io.mateam.playground.ui.main.detail.CryptoDetailsViewModel
-import io.mateam.playground.ui.main.list.CryptoListFragment
-import io.mateam.playground.ui.main.list.CryptoListViewModel
+import io.mateam.playground.ui.MainActivity
+import io.mateam.playground.ui.detail.CryptoDetailsFragment
+import io.mateam.playground.ui.detail.CryptoDetailsViewModel
+import io.mateam.playground.ui.list.CryptoListFragment
+import io.mateam.playground.ui.list.CryptoListViewModel
 
 @Module
 internal abstract class MainActivityModule {

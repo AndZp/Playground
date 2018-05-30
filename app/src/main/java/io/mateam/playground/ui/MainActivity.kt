@@ -1,4 +1,4 @@
-package io.mateam.playground.ui.main
+package io.mateam.playground.ui
 
 import android.os.Bundle
 import androidx.navigation.Navigation.findNavController
