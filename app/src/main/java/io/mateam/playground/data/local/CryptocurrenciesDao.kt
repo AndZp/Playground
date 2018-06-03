@@ -14,8 +14,8 @@ import io.mateam.playground.data.repo.model.Cryptocurrency
 @Dao
 interface CryptocurrenciesDao {
 
-  @Query("SELECT * FROM cryptocurrencies ORDER BY rank")
-  fun queryCryptocurrencies(): DataSource.Factory<Int, Cryptocurrency>
+  @Query("SELECT * FROM cryptocurrencies WHERE (name LIKE :queryString) OR (symbol LIKE :queryString) ORDER BY rank")
+  fun queryCryptocurrenciesByName(queryString: String): DataSource.Factory<Int, Cryptocurrency>
 
   @Query("SELECT * FROM cryptocurrencies WHERE id = :id ")
   fun queryCryptocurrencyById(id: Int): LiveData<Cryptocurrency>

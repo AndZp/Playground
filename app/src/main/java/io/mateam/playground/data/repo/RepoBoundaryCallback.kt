@@ -41,7 +41,6 @@ class RepoBoundaryCallback(
   // avoid triggering multiple requests in the same time
   private var isRequestInProgress = false
 
-
   override fun onZeroItemsLoaded() {
     Timber.d("onZeroItemsLoaded()")
     requestAndSaveData()
@@ -60,8 +59,7 @@ class RepoBoundaryCallback(
 
     apiInterface
         .getCryptocurrencies(
-            lastRequestedPage * NETWORK_PAGE_SIZE,
-            NETWORK_PAGE_SIZE
+            lastRequestedPage * NETWORK_PAGE_SIZE, NETWORK_PAGE_SIZE
         )
         .subscribeOn(Schedulers.newThread())
         .map { mapper.toDbFormatFromApi(it) }
@@ -69,7 +67,6 @@ class RepoBoundaryCallback(
           override fun onComplete() {
             Timber.d("API Request complete")
             _loadingStatus.postValue(SUCCESS)
-
           }
 
           override fun onNext(cryptocurrencies: List<Cryptocurrency>) {
@@ -84,7 +81,6 @@ class RepoBoundaryCallback(
             _networkErrors.postValue(e.message)
             _loadingStatus.postValue(ERROR)
             isRequestInProgress = false
-
           }
         })
   }

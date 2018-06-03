@@ -15,20 +15,38 @@ class CryptoListViewModel @Inject constructor(
   private val cryptocurrencyRepository: CryptocurrencyRepository
 ) : ViewModel() {
 
-  private val repoResult = MutableLiveData<CryptoListQueryResult>()
+  private val queryLiveData = MutableLiveData<String>()
 
-  val crypocurrencies: LiveData<PagedList<Cryptocurrency>> = Transformations.switchMap(
-      repoResult,
-      { it -> it.data })
-  val networkErrors: LiveData<String> = Transformations.switchMap(repoResult,
+  private val cryptoQueryResults: LiveData<CryptoListQueryResult> = Transformations.map(queryLiveData, {
+    cryptocurrencyRepository.queryCryptocurrenciesByName(it)
+  })
+
+  val crypocurrencies: LiveData<PagedList<Cryptocurrency>> =
+    Transformations.switchMap(cryptoQueryResults, { it -> it.data })
+
+  val networkErrors: LiveData<String> = Transformations.switchMap(
+      cryptoQueryResults,
       { it -> it.networkErrors })
-  val loadingStatus: LiveData<LoadingStatus> = Transformations.switchMap(repoResult,
+  val loadingStatus: LiveData<LoadingStatus> = Transformations.switchMap(
+      cryptoQueryResults,
       { it -> it.loadingStatus })
 
   /**
    * Load Cryptocurrencies from repository
    */
-  fun loadCryptocurrencies() {
-    repoResult.postValue(cryptocurrencyRepository.getCryptocurrenciesQueryResult())
+  fun loadCryptocurrencies(query: String) {
+    if (!query.equals(queryLiveData.value, true)) {
+      queryLiveData.postValue(query)
+    }
   }
+
+  /**
+   * Get the last query value.
+   */
+  fun lastQueryValue(): String? {
+    val value = queryLiveData.value
+    return value
+  }
+
+
 }

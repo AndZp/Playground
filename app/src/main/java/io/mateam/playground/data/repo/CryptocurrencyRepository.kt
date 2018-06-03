@@ -20,10 +20,10 @@ class CryptocurrencyRepository @Inject constructor(
   /**
    * Get cryptocurrencies from Repository
    */
-  fun getCryptocurrenciesQueryResult(): CryptoListQueryResult {
-    Timber.d("Get getCryptocurrenciesQueryResult()")
+  fun queryCryptocurrenciesByName(query: String): CryptoListQueryResult {
+    Timber.d("New Query: Get queryCryptocurrenciesByName($query)")
     // Get data source factory from the local cache
-    val dataSourceFactory = cryptocurrenciesDao.queryCryptocurrencies()
+    val dataSourceFactory = cryptocurrenciesDao.queryCryptocurrenciesByName(query.toQueryPattern())
 
     // Construct the boundary callback
     val boundaryCallback = RepoBoundaryCallback(apiInterface, cryptocurrenciesDao, mapper)
@@ -52,6 +52,9 @@ class CryptocurrencyRepository @Inject constructor(
     return CryptoQueryResult(data, MutableLiveData<String>(), MutableLiveData<LoadingStatus>())
   }
 
-
+  fun String.toQueryPattern(): String {
+    // appending '%' so we can allow other characters to be before and after the query string
+    return "%${this.replace(' ', '%')}%"
+  }
 
 }

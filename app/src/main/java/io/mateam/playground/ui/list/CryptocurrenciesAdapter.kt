@@ -1,5 +1,6 @@
 package io.mateam.playground.ui.list
 
+import android.arch.paging.PagedList
 import android.arch.paging.PagedListAdapter
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -18,6 +19,10 @@ class CryptocurrenciesAdapter(
 ) : PagedListAdapter<Cryptocurrency, CryptocurrencieViewHolder>(REPO_COMPARATOR) {
 
   var onItemClick: (Cryptocurrency) -> Unit = {}
+
+  override fun submitList(pagedList: PagedList<Cryptocurrency>?) {
+    super.submitList(pagedList)
+  }
 
   override fun onCreateViewHolder(
     parent: ViewGroup,

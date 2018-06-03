@@ -97,6 +97,8 @@ dependencies {
   //Crashlitics
   implementation 'com.crashlytics.sdk.android:crashlytics:2.9.3'
 
+  //implementation 'androidx.core:core-ktx:1.0.0-alpha1'
+
   //test
   testImplementation "junit:junit:${rootProject.ext.junitVersion}"
   androidTestImplementation "com.android.support.test:runner:${rootProject.ext.testRunnerVersion}"

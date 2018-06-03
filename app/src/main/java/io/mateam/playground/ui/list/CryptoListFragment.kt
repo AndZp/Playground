@@ -7,9 +7,15 @@ import android.arch.paging.PagedList
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.support.v7.widget.SearchView.OnQueryTextListener
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment
@@ -36,9 +42,19 @@ class CryptoListFragment : Fragment() {
   private lateinit var viewModel: CryptoListViewModel
   private lateinit var cryptocurrenciesAdapter: CryptocurrenciesAdapter
 
+  override fun onDestroyView() {
+    super.onDestroyView()
+    Timber.d("onDestroyView")
+  }
+
   override fun onAttach(context: Context?) {
     super.onAttach(context)
     AndroidSupportInjection.inject(this)
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setHasOptionsMenu(true)
   }
 
   override fun onCreateView(
@@ -55,8 +71,38 @@ class CryptoListFragment : Fragment() {
     viewModel = ViewModelProviders.of(this, viewModelFactory).get(CryptoListViewModel::class.java)
     subscribeToViewModel()
     initializeRecycler()
-    viewModel.loadCryptocurrencies()
+    viewModel.loadCryptocurrencies(viewModel.lastQueryValue() ?: "")
+  }
 
+  override fun onCreateOptionsMenu(
+    menu: Menu?,
+    inflater: MenuInflater?
+  ) {
+    inflater?.inflate(R.menu.menu_list, menu)
+
+    val item = menu?.findItem(R.id.action_search)
+    val searchView = MenuItemCompat.getActionView(item) as SearchView
+    searchView.setOnQueryTextListener(object : OnQueryTextListener {
+      override fun onQueryTextSubmit(query: String?): Boolean {
+        Timber.d("SearchView: onQueryTextChange = $query")
+        query?.let { viewModel.loadCryptocurrencies(it) }
+        return false
+      }
+
+      override fun onQueryTextChange(newText: String?): Boolean {
+        return true
+      }
+    })
+
+    item?.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+      override fun onMenuItemActionExpand(p0: MenuItem?): Boolean = true
+      override fun onMenuItemActionCollapse(p0: MenuItem?): Boolean = true
+    })
+
+    if (!viewModel.lastQueryValue().isNullOrEmpty()) {
+      item?.expandActionView()
+      searchView.setQuery(viewModel.lastQueryValue(), false)
+    }
   }
 
   private fun initializeRecycler() {
@@ -99,5 +145,9 @@ class CryptoListFragment : Fragment() {
       rvCryptos.visibility = View.VISIBLE
       tvEmptyState.visibility = View.GONE
     }
+  }
+
+  companion object {
+    private const val LAST_SEARCH_QUERY: String = "last_search_query"
   }
 }

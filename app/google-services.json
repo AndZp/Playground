@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "1032985774827",
+    "firebase_url": "https://playground-306ab.firebaseio.com",
+    "project_id": "playground-306ab",
+    "storage_bucket": "playground-306ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1032985774827:android:d3e6bd40aff39a64",
+        "android_client_info": {
+          "package_name": "io.mateam.playground"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1032985774827-ig1vto7n8n5obht87i1ooamigt3q23vd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.mateam.playground",
+            "certificate_hash": "2a96326f4694c5dbd38967ee34b4e84ebff59353"
+          }
+        },
+        {
+          "client_id": "1032985774827-fch63556u488i6a30v423gf8r8mqurij.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1032985774827-fch63556u488i6a30v423gf8r8mqurij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvMHLM60m3SMJR8puW65uHYq2H_BTt98Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1032985774827-fch63556u488i6a30v423gf8r8mqurij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
