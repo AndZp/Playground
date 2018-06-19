@@ -1,0 +1,23 @@
+apply plugin: 'com.android.instantapp'
+
+android {
+
+  defaultConfig {
+    versionCode 2
+    versionName "0.0.2"
+
+    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+  }
+
+   buildTypes {
+    debug {}
+    release {}
+
+
+  }
+}
+
+dependencies {
+  implementation project(':crypto_list_module')
+  implementation 'com.google.android.instantapps:instantapps:1.1.0'
+}

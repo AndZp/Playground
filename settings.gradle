@@ -1,1 +1,1 @@
-include ':app'
+include ':crypto_list_module', ':cryptos_apk', ':cryptos_instant_app'

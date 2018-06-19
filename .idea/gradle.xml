@@ -8,7 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/crypto_list_module" />
+            <option value="$PROJECT_DIR$/cryptos_apk" />
+            <option value="$PROJECT_DIR$/cryptos_instant_app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

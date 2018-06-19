@@ -10,8 +10,8 @@ buildscript {
     }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.0-alpha16'
-    classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha01"
+    classpath 'com.android.tools.build:gradle:3.2.0-alpha18'
+    classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
     classpath 'com.google.gms:google-services:4.0.1'
     classpath 'io.fabric.tools:gradle:1.25.4'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -26,18 +26,27 @@ allprojects {
       url 'https://maven.google.com/'
     }
   }
+  configurations {
+    all {
+      resolutionStrategy {
+        force "android.arch.lifecycle:livedata-core:1.1.1"
+        force "android.arch.lifecycle:viewmodel:1.1.1"
+        force "android.arch.lifecycle:runtime:1.1.1"
+      }
+    }
+  }
 }
 
 ext {
   //app
   compileSdkVersion = 'android-P'
-  minSDKVersion = 21
+  minSDKVersion = 23
   targetSdkVersion = 26
   supportLibVersion = "27.1.1"
   constraintLayoutVersion = "1.1.0"
   moshiKotlinVersion = "1.5.0"
   dagger2Version = "2.15"
-  archRoomVersion = "1.1.0"
+  archRoomVersion = "1.1.1-rc1"
   archLifecycleVersion = "1.1.1"
   retrofitVersion = "2.3.0"
   moshiConverterVersion = "2.3.0"
